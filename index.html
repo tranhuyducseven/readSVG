@@ -5,6 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>SEC SVG APP</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="icon" href="./wolfversion3.png" />
 	<style>
 		h1{
 			text-align: center;
@@ -14,6 +16,9 @@
 		}
 		button{
 			margin-top: 20px;
+		}
+		.app{
+			margin-top: 50px;
 		}
 		.svg-img-wrapper,
 		.introduce, #result{
@@ -35,10 +40,36 @@
 		}
 		.button-group .btn {
 			margin-right: 10px;
+		}.nav-link:hover{
+			color: aqua!important;
 		}
 	</style>
 </head>
 <body>
+	<header>
+		<nav class="navbar navbar-dark bg-dark">
+  		<div class="container">
+    		<a class="navbar-brand" href="https://tranhuyducseven.github.io/readSVG/">
+      			<img src="./wolfversion3.png" alt=""  height="50" style="border-radius:50%">
+    		</a>
+    		<ul class="navbar-nav">
+	        	<li class="nav-item">	        		
+	          		<a class="nav-link active" target="blank"  href="https://www.facebook.com/tranhuyducseven/">
+	          			<i class="fab fa-facebook"></i>
+	          			Facebook
+	          		</a>
+	        	</li>
+	        	<li class="nav-item">
+    			
+	          		<a class="nav-link active" target="blank" href="https://github.com/tranhuyducseven">
+	          			<i class="fab fa-github"></i>
+	          			Github
+	          		</a>
+	        	</li>
+        	</ul>
+  		</div>
+		</nav>
+	</header>
 	<div class="app">
 
 		<h1> Simple extract the coordinates of SVG app</h1>
@@ -50,19 +81,19 @@
 
 				</li>
 				<li>
-					Bấm Submit
+					Bấm <b>Submit</b>
 					
 				</li>
 				<li>
-					Bấm Get
+					Bấm <b>Get</b>
 					
 				</li>
 				<li>
-					Dán kết quả ra word
+					Dán kết quả ra Word
 					
 				</li>
 				<li>
-					Xuất ra csv rồi chạy trong matlab
+					Xuất ra csv rồi chạy trong Matlab
 					
 				</li>
 			</ol>
