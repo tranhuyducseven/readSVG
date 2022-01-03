@@ -3,37 +3,148 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>SEC SVG APP</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<style>
+		h1{
+			text-align: center;
+		}
+		.form{
+			padding: 50px 100px 50px;
+		}
+		button{
+			margin-top: 20px;
+		}
+		.svg-img-wrapper,
+		.introduce, #result{
+			padding: 50px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+		}
+		.introduce__title{
+			text-align: center;
+		}
+		.list{
+			padding: 0;
+			margin: 0 auto;
+		}
+		.button-group{
+			margin-top: 20px;
+		}
+		.button-group .btn {
+			margin-right: 10px;
+		}
+	</style>
 </head>
 <body>
-	<div>hELLODFGHSDFGISDFGJ</div>
-	<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 293 160" width="293pt" height="160pt"><defs><clipPath id="_clipPath_xzpSobxFNQJDqwf6TWMvyZqyGzEkO5A2"><rect width="293" height="160"/></clipPath></defs><g clip-path="url(#_clipPath_xzpSobxFNQJDqwf6TWMvyZqyGzEkO5A2)"><path d=" M 0 95 C 27.633 82.901 44.976 69.911 52 56 L 31 154 C 50.322 93.742 66.332 57.085 79 44 C 80.413 87.926 86.423 109.936 93 100 L 151 22 C 156.481 11.57 154.501 4.256 145 0 C 135.266 3.579 130.619 10.932 131 22 L 125 95 C 132.41 70.629 139.086 59.639 145 62 C 144.755 65.29 149.442 77.977 159 100 C 169.889 94.667 177.232 84.01 181 68 C 184.551 103.106 193.904 104.459 209 72 C 210.745 89.168 214.755 104.845 221 119 C 237.505 109.354 246.848 90.364 249 62 C 242.568 45.31 231.245 33.987 215 28 C 210.875 20.699 225.218 14.042 258 8" fill="rgb(255,255,255)" vector-effect="non-scaling-stroke" stroke-width="1" stroke="rgb(0,0,0)" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/></g></svg>
-	<div id="table">
-		
+	<div class="app">
+
+		<h1> Simple extract the coordinates of SVG app</h1>
+		<div class="introduce">
+			<h3 class="introduce__title">Hướng dẫn sử dụng</h3>
+			<ol class="list">
+				<li>
+					Upload file từ local
+
+				</li>
+				<li>
+					Bấm Submit
+					
+				</li>
+				<li>
+					Bấm Get
+					
+				</li>
+				<li>
+					Dán kết quả ra word
+					
+				</li>
+				<li>
+					Xuất ra csv rồi chạy trong matlab
+					
+				</li>
+			</ol>
+		</div>
+		<div class="form">
+			<form>
+			  <div class="form-group">
+			    <label for="svg">SVG file:</label>
+			    <input type="file" accept="image/*.svg" class="form-control" id="svg-input"  placeholder="Upload your svg file">
+			    
+			  </div>
+			  <div class="form-group button-group">
+			  	<div id="submit"  class="btn btn-primary">Submit</div>
+			  <div id="get-result__btn"  class="btn btn-success">Get</div>
+			  </div>
+			  
+		</form>
+		</div>
+	<div class="svg-img-wrapper">
+		<img id="svg-img"src="" alt="">
 	</div>
-</body>
-<script>
-	const path = document.querySelector('path');
-	const length = path.getTotalLength();
-	const step = length / 100;
-	const svgSet = []
-	for (let i = 0; i<length; i += step) {
-		const result = {x: path.getPointAtLength(i).x, y:path.getPointAtLength(i).y}
-	    svgSet.push(result);
-	}
-	console.log(svgSet);
-	const table = document.querySelector('#table')
-	let tableHTML = "<table class='table'><tr><th>id</th><th>X</th><th>Y</th></tr>"
-	const stringData =  svgSet.map((item, index)=>{
-		return (`<tr>
-			    <td>${index}</td>
-			    <td>${item.x}</td>
-			    <td>${item.y}</td>
-			  </tr>`
-			);
+	
+	<div id="result">
+		
+	<div>
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script>	
+	$(document).ready(function() {
+		$('#submit').click(function(){
+		event.preventDefault();	
+		const inputElement = document.querySelector('#svg-input');
+  		const [file] = inputElement.files;
+  		const imgElement = document.querySelector('#svg-img');
+  		if (file) {
+    		imgElement.src = URL.createObjectURL(file);
+    			fetch(imgElement.src)
+    			.then(res=>res.text())
+    			.then(data=>{
+    				const parser = new DOMParser();
+    				const svg = parser.parseFromString(data, 'image/svg+xml').querySelector('svg');
+    				if (imgElement.id) svg.id = imgElement.id+'-clone';
+      				if (imgElement.className) svg.classList = imgElement.classList;
+      				imgElement.parentNode.replaceChild(svg, imgElement);
+
+    			})
+    			.catch(error=>console.error(error));
+
+    		
+  			}		
+		})
+		$('#get-result__btn').click(function(){
+			const resultElement = document.querySelector('#result');
+			const path = document.querySelector('path');
+			const length = path.getTotalLength();
+			console.log(path);
+			const step = length / 100;
+			const svgSet = []
+			for (let i = 0; i<length; i += step) {
+				const result = {x: path.getPointAtLength(i).x, y:path.getPointAtLength(i).y}
+			    svgSet.push(result);
+			}
+			
+			let tableHTML = "<table class='table'><tr><th>id</th><th>X</th><th>Y</th></tr>"
+			const stringData =  svgSet.map((item, index)=>{
+				return (`<tr>
+					    <td>${index}</td>
+					    <td>${item.x}</td>
+					    <td>${item.y}</td>
+					  </tr>`
+					);
+			});
+			tableHTML+=stringData;
+			resultElement.innerHTML = tableHTML;
+			
+		})
+
 	});
-	tableHTML+=stringData;
-	table.innerHTML=tableHTML;
+	
+
+	
 </script>
+</body>
+
 </html>
